@@ -1,0 +1,7 @@
+C:\Users\alla1862\source\repos\Bank9\BankClassLibrary\bin\Debug\netstandard2.1\BankClassLibrary.deps.json
+C:\Users\alla1862\source\repos\Bank9\BankClassLibrary\bin\Debug\netstandard2.1\BankClassLibrary.dll
+C:\Users\alla1862\source\repos\Bank9\BankClassLibrary\bin\Debug\netstandard2.1\BankClassLibrary.pdb
+C:\Users\alla1862\source\repos\Bank9\BankClassLibrary\obj\Debug\netstandard2.1\BankClassLibrary.AssemblyInfoInputs.cache
+C:\Users\alla1862\source\repos\Bank9\BankClassLibrary\obj\Debug\netstandard2.1\BankClassLibrary.AssemblyInfo.cs
+C:\Users\alla1862\source\repos\Bank9\BankClassLibrary\obj\Debug\netstandard2.1\BankClassLibrary.dll
+C:\Users\alla1862\source\repos\Bank9\BankClassLibrary\obj\Debug\netstandard2.1\BankClassLibrary.pdb

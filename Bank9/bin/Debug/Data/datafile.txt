@@ -1,0 +1,1 @@
+1:Allan:0:BankClassLibrary.Models.CheckingAccount
