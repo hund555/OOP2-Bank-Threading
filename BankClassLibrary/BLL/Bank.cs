@@ -13,7 +13,7 @@ namespace BankClassLibrary.Repository
     public delegate void LogHandlerDelegate(string logMessage);
     public class Bank : IBank
     {
-        private Object lockAccount = new Object();
+        private Object _LockAccount = new Object();
         FileRepository fileRepository;
         decimal bankBalance;
         Account accountOpject;
@@ -63,7 +63,7 @@ namespace BankClassLibrary.Repository
         public decimal Deposit(decimal amount, int accountNumber)
         {
             //accountOpject = GetAccountOpject(accountNumber);
-            lock (lockAccount)
+            lock (_LockAccount)
             {
                 accountOpject = fileRepository.GetAccount(accountNumber);
                 accountOpject.Balance = amount;
@@ -74,7 +74,7 @@ namespace BankClassLibrary.Repository
         public decimal Withdraw(decimal amount, int accountNumber)
         {
             //accountOpject = GetAccountOpject(accountNumber);
-            lock (lockAccount)
+            lock (_LockAccount)
             {
                 accountOpject = fileRepository.GetAccount(accountNumber);
                 accountOpject.Balance = (amount * -1);
