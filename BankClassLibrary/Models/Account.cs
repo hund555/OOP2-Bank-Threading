@@ -29,9 +29,9 @@ namespace BankClassLibrary.Models
             get { return this.balance; }
             set
             {
-                if (balance > value)
+                if (balance < (value * -1))
                 {
-                    throw new OverdraftException(balance.ToString());
+                    throw new OverdraftException(balance.ToString("c"));
                 }
                 else
                 {

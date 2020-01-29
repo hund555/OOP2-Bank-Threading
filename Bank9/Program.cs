@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BankClassLibrary.Models;
 using BankClassLibrary.Repository;
 using BankClassLibrary.Utilities;
+using System.Threading;
 
 namespace Bank9
 {
@@ -39,7 +40,7 @@ namespace Bank9
                         string lNavn = Console.ReadLine();
                         denneAccount = bankOpject.CreateAccount(lNavn, AccountType.checkingAccount);
                         Console.Clear();
-                        Console.WriteLine($"Ny lønkonto er blevet oprettet til {lNavn}. Dit konto nummer er: {denneAccount.AccountNumber}. Din saldo er kr. {denneAccount.Balance}");
+                        Console.WriteLine($"Ny lønkonto er blevet oprettet til {lNavn}. Dit konto nummer er: {denneAccount.AccountNumber}. Din saldo er: {denneAccount.Balance.ToString("c")}");
                         Bank_LogHandlerEvent($"{DateTime.Now.ToString()}. Lønkonto lavet til: {lNavn}. Kontonummer: {denneAccount.AccountNumber}");
                         break;
                     case "O":
@@ -48,7 +49,7 @@ namespace Bank9
                         string oNavn = Console.ReadLine();
                         denneAccount = bankOpject.CreateAccount(oNavn, AccountType.savingsAccount);
                         Console.Clear();
-                        Console.WriteLine($"Ny opsparingskonto er blevet oprettet til {oNavn}. Dit konto nummer er: {denneAccount.AccountNumber}. Din saldo er kr. {denneAccount.Balance}");
+                        Console.WriteLine($"Ny opsparingskonto er blevet oprettet til {oNavn}. Dit konto nummer er: {denneAccount.AccountNumber}. Din saldo er: {denneAccount.Balance.ToString("c")}");
                         Bank_LogHandlerEvent($"{DateTime.Now.ToString()}. Opsparingskonto lavet til: {oNavn}. Kontonummer: {denneAccount.AccountNumber}");
                         break;
                     case "F":
@@ -57,7 +58,7 @@ namespace Bank9
                         string fNavn = Console.ReadLine();
                         denneAccount = bankOpject.CreateAccount(fNavn, AccountType.masterCardAccount);
                         Console.Clear();
-                        Console.WriteLine($"Ny forbrugskonto er blevet oprettet til {fNavn}. Dit konto nummer er: {denneAccount.AccountNumber}. Din saldo er kr. {denneAccount.Balance}");
+                        Console.WriteLine($"Ny forbrugskonto er blevet oprettet til {fNavn}. Dit konto nummer er: {denneAccount.AccountNumber}. Din saldo er: {denneAccount.Balance.ToString("c")}");
                         Bank_LogHandlerEvent($"{DateTime.Now.ToString()}. Forbrugskonto lavet til: {fNavn}. Kontonummer: {denneAccount.AccountNumber}");
                         break;
                     case "I":
@@ -69,9 +70,18 @@ namespace Bank9
                             if (decimal.TryParse(Console.ReadLine(), out sum))
                             {
                                 Console.Clear();
-                                Console.WriteLine($"Din saldo er kr. {Math.Round(bankOpject.Deposit(sum, kontoNummer), 2)}");
-                                Bank_LogHandlerEvent($"{DateTime.Now.ToString()}. {sum} kr. lagt ind på konto nr. {kontoNummer}. nye beløb: {bankOpject.Balance(kontoNummer)}");
+                                //Thread deposit = new Thread(bankOpject.Deposit(sum, kontoNummer));
+                                new Thread(() => Console.WriteLine("Din saldo er: {0}", bankOpject.Deposit(sum, kontoNummer).ToString("c"))).Start();
+                                Bank_LogHandlerEvent($"{DateTime.Now.ToString()}. {sum.ToString("c")} kr. lagt ind på konto nr. {kontoNummer}. nye beløb: {bankOpject.Balance(kontoNummer).ToString("c")}");
                             }
+                            else
+                            {
+                                Console.WriteLine("Ugyldig indtastning");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Ugyldig indtastning");
                         }
                         break;
                     case "H":
@@ -85,14 +95,18 @@ namespace Bank9
                                 if (decimal.TryParse(Console.ReadLine(), out sum))
                                 {
                                     Console.Clear();
-                                    Console.WriteLine($"Din saldo er kr. {Math.Round(bankOpject.Withdraw(0 - sum, kontoNummer), 2)}");
-                                    Bank_LogHandlerEvent($"{DateTime.Now.ToString()}. Beløb {sum} kr. er blevet hævet fra konto {kontoNummer}. Den nye saldo er: {bankOpject.Balance(kontoNummer)} kr");
+                                    new Thread(() => Console.WriteLine("Din saldo er: {0}", bankOpject.Withdraw(sum, kontoNummer).ToString("c"))).Start();
+                                    Bank_LogHandlerEvent($"{DateTime.Now.ToString()}. Beløb {sum.ToString("c")} er blevet hævet fra konto {kontoNummer}. Den nye saldo er: {bankOpject.Balance(kontoNummer).ToString("c")}");
                                 }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Ugyldig indtastning");
                             }
                         }
                         catch (OverdraftException e)
                         {
-                            Console.WriteLine("Du kan ikke hæve det indtastede beløb. Din saldo er kr. " + e.Message);
+                            Console.WriteLine("Du kan ikke hæve det indtastede beløb. Din saldo er: " + e.Message);
                         }
                         catch (Exception e)
                         {
@@ -112,19 +126,19 @@ namespace Bank9
                         if (int.TryParse(Console.ReadLine(), out kontoNummer))
                         {
                             Console.Clear();
-                            Console.WriteLine($"Din saldo er kr. {Math.Round(bankOpject.Balance(kontoNummer), 2)}");
+                            Console.WriteLine($"Din saldo er: {bankOpject.Balance(kontoNummer).ToString("c")}");
                         }
                         break;
                     case "A":
                         Console.Clear();
                         foreach (AccountListItem item in bankOpject.GetAccountList())
                         {
-                            Console.WriteLine($"Konto ejer: {item.Name}\nKonto type: {item.AccountType}\nKonto saldo: {item.Balance}\nKonto nummer: {item.AccountNumber}\n");
+                            Console.WriteLine($"Konto ejer: {item.Name}\nKonto type: {item.AccountType}\nKonto saldo: {item.Balance.ToString("c")}\nKonto nummer: {item.AccountNumber}\n");
                         }
                         break;
                     case "B":
                         Console.Clear();
-                        Console.WriteLine($"* Velkommen til {bankOpject.bankName}\nBankens beholdning er på kr. {bankOpject.BankBalance}");
+                        Console.WriteLine($"* Velkommen til {bankOpject.bankName}\nBankens beholdning er på: {bankOpject.BankBalance.ToString("c")}");
                         break;
                     case "G":
                         Console.Clear();
@@ -137,6 +151,10 @@ namespace Bank9
                         {
                             denneAccount = bankOpject.GetAccountOpject(kontoNummer);
                             bankOpject.UpdateAccount(denneAccount);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Ugyldig indtastning");
                         }
                         break;
                     case "X":

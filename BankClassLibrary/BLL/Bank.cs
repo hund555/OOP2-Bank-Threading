@@ -6,17 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BankClassLibrary.Utilities;
+using System.Threading;
 
 namespace BankClassLibrary.Repository
 {
     public delegate void LogHandlerDelegate(string logMessage);
     public class Bank : IBank
     {
+        private Object lockAccount = new Object();
         FileRepository fileRepository;
         decimal bankBalance;
         Account accountOpject;
         public string bankName;
-        public decimal BankBalance { get
+        public decimal BankBalance
+        {
+            get
             {
                 bankBalance = 0;
                 foreach (Account account in fileRepository.GetAllAccounts())
@@ -24,7 +28,8 @@ namespace BankClassLibrary.Repository
                     bankBalance += account.Balance;
                 }
                 return bankBalance;
-            } }
+            }
+        }
         public Bank(string bankName)
         {
             fileRepository = new FileRepository();
@@ -57,17 +62,24 @@ namespace BankClassLibrary.Repository
         #endregion
         public decimal Deposit(decimal amount, int accountNumber)
         {
-            accountOpject = fileRepository.GetAccount(accountNumber);
             //accountOpject = GetAccountOpject(accountNumber);
-            accountOpject.Balance = amount;
-            return accountOpject.Balance;
+            lock (lockAccount)
+            {
+                accountOpject = fileRepository.GetAccount(accountNumber);
+                accountOpject.Balance = amount;
+                return accountOpject.Balance;
+            }
+            
         }
         public decimal Withdraw(decimal amount, int accountNumber)
         {
-            accountOpject = fileRepository.GetAccount(accountNumber);
             //accountOpject = GetAccountOpject(accountNumber);
-            accountOpject.Balance = amount;
-            return accountOpject.Balance;
+            lock (lockAccount)
+            {
+                accountOpject = fileRepository.GetAccount(accountNumber);
+                accountOpject.Balance = (amount * -1);
+                return accountOpject.Balance;
+            }
         }
         public decimal Balance(int accountNumber)
         {

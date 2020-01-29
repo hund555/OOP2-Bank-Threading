@@ -2,3 +2,54 @@
 24-01-2020 14:43:44. Lønkonto lavet til: Allan. Kontonummer: 1
 Bank data er gemt
 Bank data er gemt
+Bank data er gemt
+27-01-2020 10:14:10. Beløb 111 kr. er blevet hævet fra konto 1. Den nye saldo er: 0 kr
+Bank data er gemt
+27-01-2020 10:26:37. Opsparingskonto lavet til: Jan. Kontonummer: 2
+27-01-2020 10:26:47. 100,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 100,00 kr.
+Bank data er gemt
+Bank data er gemt
+27-01-2020 11:13:56. Beløb 1,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 99,00 kr.
+Bank data er gemt
+27-01-2020 11:15:27. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 89,00 kr.
+Bank data er gemt
+28-01-2020 10:41:53. 10,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 89,00 kr.
+28-01-2020 11:08:08. 10,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 89,00 kr.
+28-01-2020 11:09:16. 10,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 89,00 kr.
+Bank data er gemt
+28-01-2020 11:12:01. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 109,00 kr.
+28-01-2020 11:12:13. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 109,00 kr.
+28-01-2020 11:12:43. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 129,00 kr.
+28-01-2020 11:12:57. 10,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 129,00 kr.
+Bank data er gemt
+28-01-2020 11:15:01. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 149,00 kr.
+28-01-2020 11:15:10. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 149,00 kr.
+28-01-2020 11:15:31. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 129,00 kr.
+28-01-2020 11:15:39. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 129,00 kr.
+28-01-2020 11:15:44. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 109,00 kr.
+28-01-2020 11:15:50. 100,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 109,00 kr.
+28-01-2020 11:16:09. 10,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 9,00 kr.
+28-01-2020 11:23:05. 10,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 149,00 kr.
+28-01-2020 11:23:27. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 268,00 kr.
+28-01-2020 11:23:42. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 268,00 kr.
+28-01-2020 11:24:28. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 1.042,00 kr.
+28-01-2020 11:25:09. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 2.074,00 kr.
+28-01-2020 11:30:13. 10,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 10,00 kr.
+28-01-2020 11:31:47. 10,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 139,00 kr.
+28-01-2020 11:33:04. 10,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 10,00 kr.
+28-01-2020 11:33:18. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 10,00 kr.
+28-01-2020 11:33:25. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 10,00 kr.
+Bank data er gemt
+28-01-2020 11:35:08. 10,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 20,00 kr.
+28-01-2020 11:35:16. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 20,00 kr.
+28-01-2020 11:35:27. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 10,00 kr.
+28-01-2020 11:35:33. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 0,00 kr.
+28-01-2020 11:37:19. 100,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 110,00 kr.
+28-01-2020 11:37:32. 10,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 110,00 kr.
+28-01-2020 11:37:49. 10,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 130,00 kr.
+28-01-2020 11:37:54. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 130,00 kr.
+28-01-2020 11:37:58. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 120,00 kr.
+28-01-2020 11:38:15. Beløb 109,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 1,00 kr.
+28-01-2020 11:38:46. Beløb 2,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 1,00 kr.
+28-01-2020 11:40:35. Beløb 1,00 kr. er blevet hævet fra konto 2. Den nye saldo er: 0,00 kr.
+28-01-2020 11:42:45. Beløb 2,00 kr. er blevet hævet fra konto 2. Den nye saldo er: 0,00 kr.
