@@ -1,1 +1,1 @@
-1:Allan:1:BankClassLibrary.Models.CheckingAccount;2:Jan:0:BankClassLibrary.Models.SavingsAccount
+1:Allan:211:BankClassLibrary.Models.CheckingAccount;2:Jan:100:BankClassLibrary.Models.SavingsAccount

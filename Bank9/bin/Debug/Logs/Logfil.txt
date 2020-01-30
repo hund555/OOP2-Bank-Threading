@@ -53,3 +53,21 @@ Bank data er gemt
 28-01-2020 11:38:46. Beløb 2,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 1,00 kr.
 28-01-2020 11:40:35. Beløb 1,00 kr. er blevet hævet fra konto 2. Den nye saldo er: 0,00 kr.
 28-01-2020 11:42:45. Beløb 2,00 kr. er blevet hævet fra konto 2. Den nye saldo er: 0,00 kr.
+29-01-2020 10:46:40. 100,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 1,00 kr.
+Bank data er gemt
+29-01-2020 10:47:52. 100,00 kr. kr. lagt ind på konto nr. 2. nye beløb: 100,00 kr.
+29-01-2020 10:47:57. 100,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 101,00 kr.
+Bank data er gemt
+29-01-2020 10:49:11. 5,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 206,00 kr.
+29-01-2020 10:49:16. 5,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 206,00 kr.
+Bank data er gemt
+Bank data er gemt
+29-01-2020 13:25:29. Gemmer banken
+Bank data er gemt
+29-01-2020 13:26:03. Gemmer banken
+29-01-2020 13:27:29. Gemmer banken
+29-01-2020 13:29:42. Gemmer banken
+29-01-2020 13:36:57. Gemmer banken
+29-01-2020 13:37:44. Gemmer banken
+29-01-2020 13:38:12. Gemmer banken
+29-01-2020 13:45:56. Gemmer banken

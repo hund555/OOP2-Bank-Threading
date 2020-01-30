@@ -108,7 +108,7 @@ namespace BankClassLibrary.Repository
         public void SaveBank()
         {
             fileRepository.SaveBank();
-            FileLogger.WriteToLog("Bank data er gemt");
+            //FileLogger.WriteToLog("Bank data er gemt");
         }
         public void UpdateAccount(Account acc)
         {

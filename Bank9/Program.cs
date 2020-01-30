@@ -71,7 +71,7 @@ namespace Bank9
                             {
                                 Console.Clear();
                                 //Thread deposit = new Thread(bankOpject.Deposit(sum, kontoNummer));
-                                new Thread(() => Console.WriteLine("Din saldo er: {0}", bankOpject.Deposit(sum, kontoNummer).ToString("c"))).Start();
+                                new Task(() => Console.WriteLine("Din saldo er: {0}", bankOpject.Deposit(sum, kontoNummer).ToString("c"))).Start();
                                 Bank_LogHandlerEvent($"{DateTime.Now.ToString()}. {sum.ToString("c")} kr. lagt ind på konto nr. {kontoNummer}. nye beløb: {bankOpject.Balance(kontoNummer).ToString("c")}");
                             }
                             else
@@ -95,7 +95,7 @@ namespace Bank9
                                 if (decimal.TryParse(Console.ReadLine(), out sum))
                                 {
                                     Console.Clear();
-                                    new Thread(() => Console.WriteLine("Din saldo er: {0}", bankOpject.Withdraw(sum, kontoNummer).ToString("c"))).Start();
+                                    new Task(() => Console.WriteLine("Din saldo er: {0}", bankOpject.Withdraw(sum, kontoNummer).ToString("c"))).Start();
                                     Bank_LogHandlerEvent($"{DateTime.Now.ToString()}. Beløb {sum.ToString("c")} er blevet hævet fra konto {kontoNummer}. Den nye saldo er: {bankOpject.Balance(kontoNummer).ToString("c")}");
                                 }
                             }
@@ -146,21 +146,37 @@ namespace Bank9
                         break;
                     case "U":
                         Console.Clear();
-                        Console.WriteLine("Indtast kontonummer");
-                        if (int.TryParse(Console.ReadLine(), out kontoNummer))
+
+                        //Task saveBank = Task.Run(() => bankOpject.SaveBank(), Bank_LogHandlerEvent($"{DateTime.Now}. Gemmer banken"));
+                        Task saveBank = Task.Run(() => SaveBankAndLog(bankOpject));
+                        int savingProgress = 0;
+                        if (!saveBank.IsCompleted && savingProgress <= 100)
                         {
-                            denneAccount = bankOpject.GetAccountOpject(kontoNummer);
-                            bankOpject.UpdateAccount(denneAccount);
+                            for (int i = 0; i <= 10; i++)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Gemmer banken. Vent venligst");
+                                Console.WriteLine(i * 10 + "%");
+                                savingProgress += 10;
+                                Thread.Sleep(500);
+                            }
                         }
-                        else
-                        {
-                            Console.WriteLine("Ugyldig indtastning");
-                        }
+                        Console.WriteLine("Banken er gemt");
+
+                        //Console.WriteLine("Indtast kontonummer");
+                        //if (int.TryParse(Console.ReadLine(), out kontoNummer))
+                        //{
+                        //    denneAccount = bankOpject.GetAccountOpject(kontoNummer);
+                        //    bankOpject.UpdateAccount(denneAccount);
+                        //}
+                        //else
+                        //{
+                        //    Console.WriteLine("Ugyldig indtastning");
+                        //}
                         break;
                     case "X":
                         Console.Clear();
                         loop = false;
-                        Console.WriteLine("Tak for denne gang");
                         break;
                     default:
                         Console.WriteLine("Indast venligst en af de nævnte tegn, eller tryk (M) for at få listen igen");
@@ -168,16 +184,34 @@ namespace Bank9
                         break;
                 }
             } while (loop);
-            bankOpject.SaveBank();
-
+            Task saveAndShutdown = Task.Run(() => SaveBankAndLog(bankOpject));
+            int Progress = 0;
+            if (!saveAndShutdown.IsCompleted && Progress <= 100)
+            {
+                for (int i = 0; i <= 10; i++)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Gemmer banken. Vent venligst");
+                    Console.WriteLine(i * 10 + "%");
+                    Progress += 10;
+                    Thread.Sleep(500);
+                }
+            }
+            Console.WriteLine("Banken er gemt.\nTak for denne gang");
         }
         static void menu()
         {
-            Console.WriteLine("\nVælg en venligst en funktion.\n* M = Menu\n* L = Opret ny lønkonto\n* O = Opret ny opsparingskonto\n* F = Opret ny forbrugskonto\n* I = Indsæt beløb\n* H = Hæv beløb\n* R = Rentetilskrivning\n* S = Vis saldo\n* A = Alle konti vises\n* B = Vis Bank\n* G = Vis log\n* X = Afslut");
+            Console.WriteLine("\nVælg en venligst en funktion.\n* M = Menu\n* L = Opret ny lønkonto\n* O = Opret ny opsparingskonto\n* F = Opret ny forbrugskonto\n* I = Indsæt beløb\n* H = Hæv beløb\n* R = Rentetilskrivning\n* S = Vis saldo\n* A = Alle konti vises\n* B = Vis Bank\n* G = Vis log\n* U = Gem Banken\n* X = Afslut");
         }
         static void Bank_LogHandlerEvent(string message)
         {
             FileLogger.WriteToLog(message);
+        }
+
+        static void SaveBankAndLog(Bank bankOpject)
+        {
+            bankOpject.SaveBank();
+            Bank_LogHandlerEvent($"{DateTime.Now}. Gemmer banken");
         }
     }
 }
