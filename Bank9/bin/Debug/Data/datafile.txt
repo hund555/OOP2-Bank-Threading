@@ -1,1 +1,1 @@
-1:Allan:211:BankClassLibrary.Models.CheckingAccount;2:Jan:100:BankClassLibrary.Models.SavingsAccount
+1:Allan:163,115275:BankClassLibrary.Models.CheckingAccount;2:Jan:102,0100:BankClassLibrary.Models.SavingsAccount;3:Casper:110,5000:BankClassLibrary.Models.MasterCardAccount;4:Daniel:0,0000:BankClassLibrary.Models.SavingsAccount;5:Joachim:0:BankClassLibrary.Models.SavingsAccount

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Threading;
 
 namespace BankClassLibrary.DAL
 {
@@ -19,7 +20,7 @@ namespace BankClassLibrary.DAL
         }
         public int AddAccount(Account account)
         {
-            accountNumberCounter++;
+            Interlocked.Increment(ref accountNumberCounter);
             accountList.Add(account);
             account.AccountNumber = accountNumberCounter;
             return account.AccountNumber;

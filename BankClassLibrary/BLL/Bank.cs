@@ -39,25 +39,28 @@ namespace BankClassLibrary.Repository
         #region CreateAccount
         public Account CreateAccount(string name, AccountType type)
         {
-            if (type == AccountType.checkingAccount)
+            lock (_LockAccount)
             {
-                CheckingAccount checkingAccount = new CheckingAccount(name);
-                fileRepository.AddAccount(checkingAccount);
-                accountOpject = checkingAccount;
+                if (type == AccountType.checkingAccount)
+                {
+                    CheckingAccount checkingAccount = new CheckingAccount(name);
+                    fileRepository.AddAccount(checkingAccount);
+                    accountOpject = checkingAccount;
+                }
+                else if (type == AccountType.savingsAccount)
+                {
+                    SavingsAccount savings = new SavingsAccount(name);
+                    fileRepository.AddAccount(savings);
+                    accountOpject = savings;
+                }
+                else if (type == AccountType.masterCardAccount)
+                {
+                    MasterCardAccount master = new MasterCardAccount(name);
+                    fileRepository.AddAccount(master);
+                    accountOpject = master;
+                }
+                return accountOpject;
             }
-            else if (type == AccountType.savingsAccount)
-            {
-                SavingsAccount savings = new SavingsAccount(name);
-                fileRepository.AddAccount(savings);
-                accountOpject = savings;
-            }
-            else if (type == AccountType.masterCardAccount)
-            {
-                MasterCardAccount master = new MasterCardAccount(name);
-                fileRepository.AddAccount(master);
-                accountOpject = master;
-            }
-            return accountOpject;
         }
         #endregion
         public decimal Deposit(decimal amount, int accountNumber)
@@ -95,9 +98,12 @@ namespace BankClassLibrary.Repository
         }
         public void ChargeInterest()
         {
-            foreach (Account item in fileRepository.GetAllAccounts())
+            lock (_LockAccount)
             {
-                item.ChargeInterest();
+                foreach (Account item in fileRepository.GetAllAccounts())
+                {
+                    item.ChargeInterest();
+                }
             }
         }
         public List<AccountListItem> GetAccountList()
@@ -108,7 +114,6 @@ namespace BankClassLibrary.Repository
         public void SaveBank()
         {
             fileRepository.SaveBank();
-            //FileLogger.WriteToLog("Bank data er gemt");
         }
         public void UpdateAccount(Account acc)
         {
