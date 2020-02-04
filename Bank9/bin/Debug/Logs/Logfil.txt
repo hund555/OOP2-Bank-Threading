@@ -81,3 +81,4 @@ Bank data er gemt
 31-01-2020 08:47:24. Beløb 50,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 163,12 kr.
 31-01-2020 08:47:44. 10,00 kr. kr. lagt ind på konto nr. 3. nye beløb: 100,50 kr.
 31-01-2020 08:50:03. Gemmer banken
+03-02-2020 11:09:50. Beløb 100,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 63,12 kr.

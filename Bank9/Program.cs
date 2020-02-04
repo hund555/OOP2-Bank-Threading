@@ -17,6 +17,7 @@ namespace Bank9
         {
             bool loop;
             Bank bankOpject = new Bank("Hund banken");
+            List<AccountListItem> accList = bankOpject.GetAccountListForPosting();
             bankOpject.LogHandlerEvent += Bank_LogHandlerEvent;
             Console.WriteLine("* Velkommen til " + bankOpject.bankName);
             //Console.WriteLine("Vælg en venligst en funktion.\n* M = Menu\n* L = Opret ny lønkonto\n* O = Opret ny opsparingskonto\n* F = Opret ny forbrugskonto\n* I = Indsæt beløb\n* H = Hæv beløb\n* R = Rentetilskrivning\n* S = Vis saldo\n* B = Vis Bank\n* X = Afslut");
@@ -25,13 +26,13 @@ namespace Bank9
                 int kontoNummer;
                 decimal sum;
                 loop = true;
-                menu();
+                Menu();
                 string menuValg = Console.ReadLine().ToUpper();
                 switch (menuValg)
                 {
                     case "M":
                         Console.Clear();
-                        menu();
+                        Menu();
                         break;
 
                     case "O":
@@ -44,18 +45,21 @@ namespace Bank9
                         switch (kontoType)
                         {
                             case '1':
-                                Task nyLKonto = new Task(() => CreateAccount(bankOpject, kontoNavn, AccountType.checkingAccount));
-                                nyLKonto.Start();
+                                Task<string> nyLKonto = Task.Run(() => CreateAccount(bankOpject, kontoNavn, AccountType.checkingAccount));
+
+                                Task continueLKonto = nyLKonto.ContinueWith(fL => Bank_LogHandlerEvent(fL.Result));
                                 break;
 
                             case '2':
-                                Task nyOKonto = new Task(() => CreateAccount(bankOpject, kontoNavn, AccountType.savingsAccount));
-                                nyOKonto.Start();
+                                Task<string> nyOKonto = Task.Run(() => CreateAccount(bankOpject, kontoNavn, AccountType.savingsAccount));
+
+                                Task continueOKonto = nyOKonto.ContinueWith(fO => Bank_LogHandlerEvent(fO.Result));
                                 break;
 
                             case '3':
-                                Task nyFKonto = new Task(() => CreateAccount(bankOpject, kontoNavn, AccountType.masterCardAccount));
-                                nyFKonto.Start();
+                                Task<string> nyFKonto = Task.Run(() => CreateAccount(bankOpject, kontoNavn, AccountType.masterCardAccount));
+
+                                Task continueFKonto = nyFKonto.ContinueWith(fF => Bank_LogHandlerEvent(fF.Result));
                                 break;
 
                             default:
@@ -75,13 +79,12 @@ namespace Bank9
                             {
                                 Console.Clear();
                                 //Thread deposit = new Thread(bankOpject.Deposit(sum, kontoNummer));
-                                Task<decimal> deposit = Task.Run(() => bankOpject.Deposit(sum, kontoNummer));
+                                Task<string> deposit = Task.Run(() => bankOpject.Deposit(sum, kontoNummer));
                                 Task continueDeposit = deposit.ContinueWith(fd =>
                                 {
-                                    Console.WriteLine("Din saldo er: {0}", fd.Result.ToString("c"));
-                                    Bank_LogHandlerEvent($"{DateTime.Now.ToString()}. {sum.ToString("c")} kr. lagt ind på konto nr. {kontoNummer}. nye beløb: {bankOpject.Balance(kontoNummer).ToString("c")}");
+                                    Bank_LogHandlerEvent(fd.Result);
                                 }, TaskScheduler.Current);
-                                
+                                Task faltedDeposit = deposit.ContinueWith(falted => Console.WriteLine("Noget gik galt"), TaskContinuationOptions.OnlyOnFaulted);
                                 
                             }
                             else
@@ -106,12 +109,17 @@ namespace Bank9
                                 if (decimal.TryParse(Console.ReadLine(), out sum))
                                 {
                                     Console.Clear();
-                                    Task<decimal> withdraw = Task.Run(() => bankOpject.Withdraw(sum, kontoNummer));
+                                    Task<string> withdraw = Task.Run(() => bankOpject.Withdraw(sum, kontoNummer));
                                     Task continueWithdraw = withdraw.ContinueWith(fw =>
                                     {
-                                        Console.WriteLine("Din saldo er: {0}", fw.Result.ToString("c"));
-                                        Bank_LogHandlerEvent($"{DateTime.Now.ToString()}. Beløb {sum.ToString("c")} er blevet hævet fra konto {kontoNummer}. Den nye saldo er: {bankOpject.Balance(kontoNummer).ToString("c")}");
-                                    }, TaskScheduler.Current);
+                                        Bank_LogHandlerEvent(fw.Result);
+                                    }, TaskContinuationOptions.OnlyOnRanToCompletion);
+
+                                    Task faltedWithdraw = withdraw.ContinueWith(falted => Console.WriteLine("Noget gik galt. Check om din konto indeholder det ønskede beløb"), TaskContinuationOptions.OnlyOnFaulted);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Ugyldig indtastning");
                                 }
                             }
                             else
@@ -119,7 +127,7 @@ namespace Bank9
                                 Console.WriteLine("Ugyldig indtastning");
                             }
                         }
-                        catch (OverdraftException e)
+                        catch (AggregateException e)
                         {
                             Console.WriteLine("Du kan ikke hæve det indtastede beløb. Din saldo er: " + e.Message);
                         }
@@ -151,10 +159,7 @@ namespace Bank9
 
                     case "A":
                         Console.Clear();
-                        foreach (AccountListItem item in bankOpject.GetAccountList())
-                        {
-                            Console.WriteLine($"Konto ejer: {item.Name}\nKonto type: {item.AccountType}\nKonto saldo: {item.Balance.ToString("c")}\nKonto nummer: {item.AccountNumber}\n");
-                        }
+                        PrintList(bankOpject, accList);
                         break;
 
                     case "B":
@@ -206,6 +211,7 @@ namespace Bank9
                         Console.Clear();
                         break;
                 }
+
             } while (loop);
             Task saveAndShutdown = Task.Run(() => SaveBankAndLog(bankOpject));
             int Progress = 0;
@@ -222,7 +228,7 @@ namespace Bank9
             }
             Console.WriteLine("Banken er gemt.\nTak for denne gang");
         }
-        static void menu()
+        static void Menu()
         {
             Console.WriteLine("\nVælg en venligst en funktion.\n* M = Menu\n* O = Opret ny konto\n* I = Indsæt beløb\n* H = Hæv beløb\n* R = Rentetilskrivning\n* S = Vis saldo\n* A = Alle konti vises\n* B = Vis Bank\n* G = Vis log\n* U = Gem Banken\n* X = Afslut");
         }
@@ -237,7 +243,7 @@ namespace Bank9
             Bank_LogHandlerEvent($"{DateTime.Now}. Gemmer banken");
         }
 
-        static void CreateAccount(Bank bankOpject, string navn, AccountType accountType)
+        static string CreateAccount(Bank bankOpject, string navn, AccountType accountType)
         {
             Account nyAccount = bankOpject.CreateAccount(navn, accountType);
             string type = "";
@@ -253,9 +259,13 @@ namespace Bank9
             {
                 type = "opsparingskonto";
             }
-            bankOpject.SaveBank();
-            Bank_LogHandlerEvent($"{DateTime.Now}. Konto oprettet: Ejer navn: {navn}. Type konto: {type}. Konto Nr.: {nyAccount.AccountNumber}.");
             Console.WriteLine($"Ny {type} er blevet oprettet til {navn}. Dit konto nummer er: {nyAccount.AccountNumber}. Din saldo er: {nyAccount.Balance.ToString("c")}");
+            return $"{DateTime.Now}. Konto oprettet: Ejer navn: {navn}. Type konto: {type}. Konto Nr.: {nyAccount.AccountNumber}.";
+        }
+        static async void PrintList(Bank bank, List<AccountListItem> accList)
+        {
+
+            await bank.GetAccountListString(accList);
         }
     }
 }

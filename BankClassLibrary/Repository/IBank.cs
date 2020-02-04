@@ -9,11 +9,11 @@ namespace BankClassLibrary.Repository
 {
     interface IBank
     {
-        List<AccountListItem> GetAccountList();
+        List<AccountListItem> GetAccountListForPosting();
         public decimal BankBalance { get; }
         public Account CreateAccount(string name, AccountType type);
-        public decimal Deposit(decimal amount, int accountNumber);
-        public decimal Withdraw(decimal amount, int accountNumber);
+        public string Deposit(decimal amount, int accountNumber);
+        public string Withdraw(decimal amount, int accountNumber);
         public decimal Balance(int accountNumber);
         //private Account GetAccountOpject(int accountNumber); giver fejl af en eller anden grund
         public void ChargeInterest();

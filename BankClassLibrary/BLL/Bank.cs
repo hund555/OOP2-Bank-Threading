@@ -13,6 +13,7 @@ namespace BankClassLibrary.Repository
     public delegate void LogHandlerDelegate(string logMessage);
     public class Bank : IBank
     {
+
         private Object _LockAccount = new Object();
         FileRepository fileRepository;
         decimal bankBalance;
@@ -63,25 +64,27 @@ namespace BankClassLibrary.Repository
             }
         }
         #endregion
-        public decimal Deposit(decimal amount, int accountNumber)
+        public string Deposit(decimal amount, int accountNumber)
         {
             //accountOpject = GetAccountOpject(accountNumber);
             lock (_LockAccount)
             {
                 accountOpject = fileRepository.GetAccount(accountNumber);
                 accountOpject.Balance = amount;
-                return accountOpject.Balance;
+                Console.WriteLine("Din saldo er: {0}", accountOpject.Balance.ToString("c"));
+                return $"{DateTime.Now.ToString()}. {amount.ToString("c")} kr. lagt ind på konto nr. {accountNumber}. nye beløb: {accountOpject.Balance.ToString("c")}";
             }
-            
+
         }
-        public decimal Withdraw(decimal amount, int accountNumber)
+        public string Withdraw(decimal amount, int accountNumber)
         {
             //accountOpject = GetAccountOpject(accountNumber);
             lock (_LockAccount)
             {
                 accountOpject = fileRepository.GetAccount(accountNumber);
                 accountOpject.Balance = (amount * -1);
-                return accountOpject.Balance;
+                Console.WriteLine("Din saldo er: {0}", accountOpject.Balance.ToString("c"));
+                return $"{DateTime.Now.ToString()}. Beløb {amount.ToString("c")} er blevet hævet fra konto {accountNumber}. Den nye saldo er: {accountOpject.Balance.ToString("c")}";
             }
         }
         public decimal Balance(int accountNumber)
@@ -106,9 +109,22 @@ namespace BankClassLibrary.Repository
                 }
             }
         }
-        public List<AccountListItem> GetAccountList()
+
+        public List<AccountListItem> GetAccountListForPosting()
         {
             return fileRepository.GetAccountList();
+        }
+        public async Task GetAccountListString(List<AccountListItem> accList)
+        {
+            List<Task<string>> printAccList = new List<Task<string>>();
+            foreach (AccountListItem item in accList)
+            {
+                printAccList.Add(Task<string>.Run(() => $"Konto ejer: {item.Name}\nKonto saldo: {item.Balance.ToString("c")}\n"));
+            }
+
+            Task printMe = Task.WhenAll(printAccList);
+            await printMe;
+            printAccList.ForEach(p => Console.WriteLine(p.Result));
         }
         public LogHandlerDelegate LogHandlerEvent;
         public void SaveBank()
