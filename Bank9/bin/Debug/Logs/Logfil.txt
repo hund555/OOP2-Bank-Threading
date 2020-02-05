@@ -82,3 +82,44 @@ Bank data er gemt
 31-01-2020 08:47:44. 10,00 kr. kr. lagt ind på konto nr. 3. nye beløb: 100,50 kr.
 31-01-2020 08:50:03. Gemmer banken
 03-02-2020 11:09:50. Beløb 100,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 63,12 kr.
+04-02-2020 11:02:38. Konto oprettet: Ejer navn: Sofus. Type konto: lønkonto. Konto Nr.: 6.
+04-02-2020 11:03:14. 100,00 kr. kr. lagt ind på konto nr. 6. nye beløb: 100,00 kr.
+
+04-02-2020 11:03:52. Gemmer banken
+
+04-02-2020 11:04:00. Gemmer banken
+04-02-2020 11:07:13. Konto oprettet: Ejer navn: Peter. Type konto: lønkonto. Konto Nr.: 7.
+
+04-02-2020 11:07:38. Gemmer banken
+04-02-2020 12:07:42. Konto oprettet: Ejer navn: Jette. Type konto: savingsAccount. Konto Nr.: 8.
+04-02-2020 12:12:50. 50,00 kr. kr. lagt ind på konto nr. 1. nye beløb: 213,12 kr.
+04-02-2020 12:13:58. Beløb 100,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 113,12 kr.
+04-02-2020 12:14:11. Beløb -100,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 213,12 kr.
+04-02-2020 12:16:50. Beløb 100,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 63,12 kr.
+04-02-2020 12:17:00. Beløb -50,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 13,12 kr.
+04-02-2020 12:17:10. Banken har taget renter
+04-02-2020 12:17:17. Banken har taget renter
+04-02-2020 12:17:17. Banken har taget renter
+04-02-2020 12:17:17. Banken har taget renter
+04-02-2020 12:17:18. Banken har taget renter
+04-02-2020 12:17:18. Banken har taget renter
+
+04-02-2020 12:17:25. Gemmer banken
+04-02-2020 14:11:33. Der er prøvet at hæve: 100,00 kr. fra konto: 1 men fejlede
+04-02-2020 14:12:06. Der er prøvet at hæve: 100,00 kr. fra konto: 1 men fejlede
+04-02-2020 14:12:25. Beløb 10,00 kr. er blevet hævet fra konto 1. Den nye saldo er: 3,51 kr.
+
+04-02-2020 14:13:12. Gemmer banken
+04-02-2020 14:14:56. Der er prøvet at hæve: 100,00 kr. fra konto: 1 men fejlede
+04-02-2020 14:15:12. Der er prøvet at hæve: 50,00 kr. fra konto: 1 men fejlede
+04-02-2020 14:16:19. Der er prøvet at hæve: 10,00 kr. fra konto: 1 men fejlede
+04-02-2020 14:18:42. Der er prøvet at hæve: 100,00 kr. fra konto: 1 men fejlede
+3,51 kr.
+04-02-2020 14:19:48. Der er prøvet at hæve: 10,00 kr. fra konto: 1 men fejlede
+04-02-2020 14:29:36. Der er prøvet at hæve: 1.000,00 kr. fra konto: 1 men fejlede
+04-02-2020 15:03:20. Der er prøvet at hæve: 10.000,00 kr. fra konto: 1 men fejlede
+04-02-2020 15:07:38. Der er prøvet at hæve: 1.000,00 kr. fra konto: 1 men fejlede
+04-02-2020 15:08:25. Der er prøvet at hæve: 1.000,00 kr. fra konto: 1 men fejlede
+05-02-2020 08:53:18. Der er prøvet at hæve: 100.000,00 kr. fra konto: 1 men fejlede
+
+05-02-2020 08:53:45. Gemmer banken

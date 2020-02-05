@@ -20,6 +20,7 @@ namespace BankClassLibrary.Models
 
         public override void ChargeInterest()
         {
+            //Når renter tilskrives får alle accounts af denne type nedenstående renter
             if (balance < 50000)
             {
                 balance *= 1.01M;

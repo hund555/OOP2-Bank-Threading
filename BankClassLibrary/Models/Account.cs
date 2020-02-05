@@ -29,8 +29,10 @@ namespace BankClassLibrary.Models
             get { return this.balance; }
             set
             {
+                //Rammes af både Withdraw og deposit metoderne men det er kun muligt for withdraw at komme ind
                 if (balance < (value * -1))
                 {
+                    //Denne Exeption kastes hvis en bruger prøver at hæve mere end hvad der står på kontoen
                     throw new OverdraftException(balance.ToString("c"));
                 }
                 else

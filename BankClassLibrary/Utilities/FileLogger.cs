@@ -9,23 +9,27 @@ namespace BankClassLibrary.Utilities
 {
     public static class FileLogger
     {
-        static string fileName = @"Logs\Logfil.txt";
+        //Stien til logfilen
+        private static string _fileName = @"Logs\Logfil.txt";
         public static void WriteToLog(string logMessage)
         {
-            if (!Directory.Exists(fileName))
+            //Hvis mappen ikke findes på stien laves den
+            if (!Directory.Exists(_fileName))
             {
                 Directory.CreateDirectory("Logs");
             }
-            if (File.Exists(fileName))
+            //Skriver til Logfilen. Bruger using for at lukke forbindelsen til filen når den er færdig
+            if (File.Exists(_fileName))
             {
-                using (StreamWriter swm = File.AppendText(fileName))
+                using (StreamWriter swm = File.AppendText(_fileName))
                 {
                     swm.WriteLine(logMessage);
                 }
             }
+            //Hvis logfilen ikke eksitere laves den og skriver til den. Bruger using for at lukke forbindelsen igen når den er færdig
             else
             {
-                using (StreamWriter swm = File.CreateText(fileName))
+                using (StreamWriter swm = File.CreateText(_fileName))
                 {
                     swm.WriteLine(logMessage);
                 }
@@ -33,10 +37,12 @@ namespace BankClassLibrary.Utilities
         }
         public static string ReadFromLog()
         {
-            if (File.Exists(fileName))
+            //Checker om filen eksitere og læser loggen hvis den gør
+            if (File.Exists(_fileName))
             {
-                return File.ReadAllText(fileName).ToString();
+                return File.ReadAllText(_fileName).ToString();
             }
+            //eksitere filen ikke eksistere sendes nedenstående besked tilbage
             else
             {
                 return "Der er ikke nogen log at vise";

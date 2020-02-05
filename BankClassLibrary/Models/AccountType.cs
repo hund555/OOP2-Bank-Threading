@@ -8,6 +8,7 @@ namespace BankClassLibrary.Models
 {
     public enum AccountType
     {
+        //Hvis du mener en kommentar herinde er nødvendig så er jeg her ;)
         checkingAccount,
         savingsAccount,
         masterCardAccount

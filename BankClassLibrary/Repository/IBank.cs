@@ -12,8 +12,8 @@ namespace BankClassLibrary.Repository
         List<AccountListItem> GetAccountListForPosting();
         public decimal BankBalance { get; }
         public Account CreateAccount(string name, AccountType type);
-        public string Deposit(decimal amount, int accountNumber);
-        public string Withdraw(decimal amount, int accountNumber);
+        public Task<string> Deposit(decimal amount, int accountNumber);
+        public Task<string> Withdraw(decimal amount, int accountNumber);
         public decimal Balance(int accountNumber);
         //private Account GetAccountOpject(int accountNumber); giver fejl af en eller anden grund
         public void ChargeInterest();
